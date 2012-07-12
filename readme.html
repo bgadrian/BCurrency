@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>  
+<link rel="stylesheet" type="text/css" href="my.css">
+<style type="text/css">
+ p{
+     margin:0;
+ }
+  .code {
+    padding:10px;
+    background-color:#FFFFC0;
+    font-weight:bolder;
+    width:90%;
+    word-wrap: break-word;
+  }
+  .code span {
+      color:grey;
+      font-style:italic;
+  }
+</style>
+</head>
+<body>
+<h1>BTooLs - BNR and Google currency convertors</h1>
+<h2>BCurrency PHP Class - made by B3aT (BTooLs.eu)</h2>
+<h2>The main function of the class : convert from or to RON, with Romanian National Bank rates.</h2>
+<h3>Version : 0.9 2011.08.22</h3>
+<h3>First step</h3>
+ <p>If your framework doesn`t autoload the class, include the class file : </p> 
+ <p class="code">require ('bbnrrates.class.php'); </p>
+ <p>Instantiate the class</p>
+ <p class="code">$b_rates = new BBNRrates();</p> 
+<h3>Examples</h3>                           
+<p>Quick convert 1 EURO to RON</p>
+<p class="code">$b_rates->bnr_convert(1);<span>//Result : 4.3</span></p>
+<p class="code">$b_rates->bnr_convert(150,"USD","RON",2);<span>//Convert 150 USD in RON with 2 decimals </span></p>
+<p class="code">$b_rates->bnr_convert(249,'RON','HUF');<span>//Convert 249 RON in forints, with 1 decimal (default)</span></p>
+<p class="code">$b_rates->bnr_convert(100,'RON','EUR',3);<span>//100 RON in Euro, with 3 decimals.</span></p>
+
+<p>Note : All results are float type, or false (bool) if something went wrong.</p>
+<p>Note : convert function supports only TO or FROM RON currency, from other currency to other, use the google function !</p>
+<h3>In your script you will need the following too</h3>
+<p>Dinamically get the supported BNR currencies : </p>
+<p class="code">$b_rates->get_bnr_currencies();
+<span>//Result : array(RON,AED,AUD,BGN,BRL,CAD,CHF,CNY,CZK,DKK,EGP,EUR,GBP,HUF,INR,JPY,KRW,MDL,MXN,NOK,NZD,PLN,RSD,RUB,SEK,TRY,UAH,USD,XAU,XDR,ZAR)</span></p>
+<p>Get the rates refresh date</p>
+<p class="code">$b_rates->get_bnr_day();<span>//Result : YYYY-MM-DD</span></p>
+<p>If you want to use this class just to display the currency rates, not for a calculator, just use this function :</p>
+<p class="code">$b_rates->get_bnr_currency('CAD');//returns (float)3</p>
+<p class="code">$b_rates->get_bnr_currency(array('USD','CAD','EUR')); //returns Array ( [USD] => 2.96 [CAD] => 3 [EUR] => 4.26 )  </p>
+
+<h3>Caching</h3>
+<p>The class can use the APC caching module for PHP. Use this if you plan to extensively use this class, maximize the performance and avoid your IP be banned by BNR (for too many requests).</p>
+<p>To enable it manually edit the following class settings : </p>
+<ul><li class="code">$use_cache = true;//enable the cache</li>
+<li class="code">$apc_var_ttl = 3600;//variable time to live, default 1 hour</li></ul>
+<p><i>If you want to use APC on windows be carefull to choose the correct version : http://downloads.php.net/pierre/</i></p>
+
+<h2>Google currency converter !</h2>
+<p>The fastest and best way to convert between all currencies, just use the "google_convert" function.</p>
+<p>It works directly with the Google's API (not trough the search engine), and it has only 3 rows !</p>
+<h3>Examples</h3>
+<p class="code">$b_rates->google_convert(1,'EUR','USD');<span>//Convert 1 Euro to USD (default 1 decimal)</span></p>
+<p class="code">$b_rates->google_convert(180,'USD','CNY',3);<span>//Convert 180 US dollars to Chinese Yuan with 3 decimals !</span></p>
+<h3>If you use this class please post a comment on my website or create a link to btools.eu on yours. Thanks.</h3>
+</body>
+</html>
